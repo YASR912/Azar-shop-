@@ -1,0 +1,75 @@
+-- Database schema for Azar Shop
+CREATE DATABASE azar_shop;
+USE azar_shop;
+
+-- Users table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products table
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image_url VARCHAR(255),
+    category VARCHAR(100),
+    stock INT DEFAULT 0,
+    status TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Cart table
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    UNIQUE KEY unique_cart_item (user_id, product_id)
+);
+
+-- Orders table
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    shipping_address TEXT NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Order items table
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Insert sample products
+INSERT INTO products (name, description, price, image_url, category, stock) VALUES
+('Wireless Headphones', 'High-quality wireless headphones with noise cancellation', 79.99, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Electronics', 50),
+('Smart Watch', 'Feature-rich smartwatch with health monitoring', 199.99, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Electronics', 30),
+('Bluetooth Speaker', 'Portable Bluetooth speaker with excellent sound quality', 49.99, 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Electronics', 40),
+('Gaming Mouse', 'Ergonomic gaming mouse with RGB lighting', 59.99, 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Electronics', 60),
+('USB-C Cable', 'Durable USB-C charging and data cable', 19.99, 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Accessories', 100),
+('Laptop Stand', 'Adjustable laptop stand for better ergonomics', 39.99, 'https://images.unsplash.com/photo-1588200908342-23b585c03e26?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Accessories', 25),
+('Wireless Charger', 'Fast wireless charging pad for smartphones', 29.99, 'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Accessories', 35),
+('Phone Case', 'Protective case for smartphones with stylish design', 24.99, 'https://images.unsplash.com/photo-1601593346740-9b858b9d0357?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Accessories', 75),
+('Cotton T-Shirt', '100% cotton comfortable t-shirt', 24.99, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Clothing', 100),
+('Jeans', 'Classic denim jeans', 49.99, 'https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Clothing', 50),
+('Coffee Maker', 'Automatic drip coffee maker', 89.99, 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Home', 30),
+('Blender', 'High-speed kitchen blender', 39.99, 'https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'Home', 40);
