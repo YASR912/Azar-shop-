@@ -55,23 +55,36 @@
             color: #ffdd40;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
+       nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #222; /* background so it's visible */
+    z-index: 1000;
+}
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            display: block;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-        }
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 10px 20px; /* some spacing */
+}
 
-        nav ul li a:hover, nav ul li a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 
         .header-icons {
             display: flex;
@@ -716,15 +729,15 @@
                 <h1><i class="fas fa-shopping-bag"></i> Azar Shop</h1>
             </div>
             <nav>
-                <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#categories">Categories</a></li>
-                    <li><a href="#orders">My Orders</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+               <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#orders">My Orders</a></li>
+                <li><a href="#about">About</a></li>
+               <li><a href="#contact">Contact</a></li>
+             </ul>
+          </nav>
             <div class="header-icons">
                 <div class="search-box">
                     <input type="text" id="search-input" placeholder="Search products...">
@@ -936,13 +949,13 @@
                 </div>
                 <div class="footer-section">
                     <h4>Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</p>
-                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
-                    <p><i class="fas fa-envelope"></i> info@azarshop.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 400 port road, Portsudan, Sudan</p>
+                    <p><i class="fas fa-phone"></i> +91 8008576988 </p>
+                    <p><i class="fas fa-envelope"></i> wdabslap912@gmail.com</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Azar Shop. All rights reserved.</p>
+                <p>&copy; 2025 Azar Shop. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1518,4 +1531,5 @@
         }
     </script>
 </body>
+
 </html>
